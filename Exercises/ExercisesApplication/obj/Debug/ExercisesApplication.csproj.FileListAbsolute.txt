@@ -1,0 +1,9 @@
+D:\Studio Projects\Exercises\ExercisesApplication\bin\Debug\ExercisesApplication.exe.config
+D:\Studio Projects\Exercises\ExercisesApplication\bin\Debug\ExercisesApplication.exe
+D:\Studio Projects\Exercises\ExercisesApplication\bin\Debug\ExercisesApplication.pdb
+D:\Studio Projects\Exercises\ExercisesApplication\obj\Debug\ExercisesApplication.csprojResolveAssemblyReference.cache
+D:\Studio Projects\Exercises\ExercisesApplication\obj\Debug\ExercisesApplication.exe
+D:\Studio Projects\Exercises\ExercisesApplication\obj\Debug\ExercisesApplication.pdb
+D:\Studio Projects\MyRepository\Exercises\ExercisesApplication\bin\Debug\ExercisesApplication.exe.config
+D:\Studio Projects\MyRepository\Exercises\ExercisesApplication\obj\Debug\ExercisesApplication.exe
+D:\Studio Projects\MyRepository\Exercises\ExercisesApplication\obj\Debug\ExercisesApplication.pdb
