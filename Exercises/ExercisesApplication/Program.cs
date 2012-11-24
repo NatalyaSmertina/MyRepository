@@ -12,7 +12,7 @@ namespace ExercisesApplication
  
         static void Main(string[] args)
         {
-           /* DoFirstExercise();
+            DoFirstExercise();
             DoSecondExercise();
             DoThirdExercise();
             DoFourthExercise();
@@ -20,7 +20,7 @@ namespace ExercisesApplication
             DoSixthExercise();
             DoSeventhExercise();
             DoEighthExercise();
-            DoNinethExercise();*/
+            DoNinethExercise();
             DoTenthExercise();
 
             Console.ReadLine();
@@ -79,20 +79,23 @@ namespace ExercisesApplication
             int a;
             int b;
 
-            int.TryParse(Console.ReadLine(), out a);
-            b = ++a;
-            Console.WriteLine("The value of ++a is {0}", b);
-            Console.WriteLine("The value of a is {0}", a);
-            b = a++;
-            Console.WriteLine("The value of a++ is {0}", b);
-            Console.WriteLine("The value of a is {0}", a);
+            if (int.TryParse(Console.ReadLine(), out a) == true)
+            {
+                b = ++a;
+                Console.WriteLine("The value of ++a is {0}", b);
+                Console.WriteLine("The value of a is {0}", a);
+                b = a++;
+                Console.WriteLine("The value of a++ is {0}", b);
+                Console.WriteLine("The value of a is {0}", a);
 
-            b = --a;
-            Console.WriteLine("The value of --a is {0}", b);
-            Console.WriteLine("The value of a is {0}", a);
-            b = a--;
-            Console.WriteLine("The value of a-- is {0}", b);
-            Console.WriteLine("The value of a is {0}", a);
+                b = --a;
+                Console.WriteLine("The value of --a is {0}", b);
+                Console.WriteLine("The value of a is {0}", a);
+                b = a--;
+                Console.WriteLine("The value of a-- is {0}", b);
+                Console.WriteLine("The value of a is {0}", a);
+            }
+            else Console.WriteLine("You entered wrong value");
 
         }
 
