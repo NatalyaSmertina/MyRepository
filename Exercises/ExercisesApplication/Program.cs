@@ -12,7 +12,7 @@ namespace ExercisesApplication
  
         static void Main(string[] args)
         {
-            DoFirstExercise();
+           /* DoFirstExercise();
             DoSecondExercise();
             DoThirdExercise();
             DoFourthExercise();
@@ -21,8 +21,9 @@ namespace ExercisesApplication
             DoSeventhExercise();
             DoEighthExercise();
             DoNinethExercise();
-            DoTenthExercise();
-
+            DoTenthExercise();*/
+            //DoEleventhExercise();
+            DoTwelvthExercise();
             Console.ReadLine();
         }
 
@@ -205,9 +206,35 @@ namespace ExercisesApplication
                 case 'd': Console.WriteLine("Wrong"); break;
                 default: Console.WriteLine("Wrong"); break;
             }
-            
+        }
 
+        static void DoEleventhExercise()
+        {
+            for (int i = 6; i >=0 ; i--)
+            {
+                for (int j = i; j >=0; j--)
+                {
+                    Console.Write("*");
+                }
+                Console.Write("\n");
+            }
+        }
 
+        static void DoTwelvthExercise()
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    Console.Write(j+1);
+                }
+                for (int k = i + 1; k < 7; k++)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine("\n");
+            }
+         
         }
 
     }
