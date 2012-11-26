@@ -10,3 +10,15 @@ d:\Studio Projects\Consol for Mongo\ConsolForMongo\bin\Debug\MongoDB.Driver.xml
 d:\Studio Projects\Consol for Mongo\ConsolForMongo\obj\Debug\ConsolForMongo.csprojResolveAssemblyReference.cache
 d:\Studio Projects\Consol for Mongo\ConsolForMongo\obj\Debug\ConsolForMongo.exe
 d:\Studio Projects\Consol for Mongo\ConsolForMongo\obj\Debug\ConsolForMongo.pdb
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\bin\Debug\ConsolForMongo.exe.config
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\obj\Debug\ConsolForMongo.exe
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\obj\Debug\ConsolForMongo.pdb
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\bin\Debug\ConsolForMongo.exe
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\bin\Debug\ConsolForMongo.pdb
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\bin\Debug\MongoDB.Bson.dll
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\bin\Debug\MongoDB.Driver.dll
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\bin\Debug\MongoDB.Bson.pdb
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\bin\Debug\MongoDB.Bson.xml
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\bin\Debug\MongoDB.Driver.pdb
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\bin\Debug\MongoDB.Driver.xml
+D:\Studio Projects\MyRepository\Consol for Mongo\ConsolForMongo\obj\Debug\ConsolForMongo.csprojResolveAssemblyReference.cache

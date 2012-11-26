@@ -33,14 +33,11 @@ namespace ConsolForMongo
         private MongoDatabase _database;
         private MongoServer _server;
         
-        public DatabaseManager()
+   
+        private void IdentifyAnyCollection(string collectionNameToCreat)
         {
             _server = MongoServer.Create(_connectionString);
             _database = _server.GetDatabase(_databaseName);
-        }
-
-        private void IdentifyAnyCollection(string collectionNameToCreat)
-        { 
             _collectionName = collectionNameToCreat;
             _collection = _database.GetCollection(_collectionName);
         }
@@ -107,6 +104,7 @@ namespace ConsolForMongo
                     levelNumber, (averageForGroup == 0d ? 0d : averageForGroup / countUsersInGroup) * 100);
 
             }
+            Console.WriteLine("Работа с таблицей user окончена");
         }
 
         public void ShowMashineTitles()
@@ -119,6 +117,8 @@ namespace ConsolForMongo
             TimeMessuring.StartTime();
             MachineAllFieldsFinder();
             TimeMessuring.EndTime();
+
+            Console.WriteLine("Работа с таблицей machine окончена");
         }
 
     }

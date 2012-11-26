@@ -80,7 +80,7 @@ namespace ExercisesApplication
             int a;
             int b;
 
-            if (int.TryParse(Console.ReadLine(), out a) == true)
+            if (int.TryParse(Console.ReadLine(), out a))
             {
                 b = ++a;
                 Console.WriteLine("The value of ++a is {0}", b);
@@ -96,7 +96,8 @@ namespace ExercisesApplication
                 Console.WriteLine("The value of a-- is {0}", b);
                 Console.WriteLine("The value of a is {0}", a);
             }
-            else Console.WriteLine("You entered wrong value");
+            else
+                Console.WriteLine("You entered wrong value");
 
         }
 
@@ -168,6 +169,7 @@ namespace ExercisesApplication
             char.TryParse(Console.ReadLine(), out enteredNumber);
             switch (enteredNumber)
             {
+                    //char operations
                 case '0': Console.WriteLine("you entered 0"); break;
                 case '1': Console.WriteLine("you entered 1"); break;
                 case '2': Console.WriteLine("you entered 2"); break;
@@ -196,8 +198,14 @@ namespace ExercisesApplication
             {
                 answer = char.Parse(Console.ReadLine());
             }
-            catch (IOException e) { Console.WriteLine("IO Exception: {0}", e); }
-            catch (FormatException i) { Console.WriteLine("IO Exception: {0}", i); }
+            catch (IOException e) 
+            { 
+                Console.WriteLine("IO Exception: {0}", e); 
+            }
+            catch (FormatException i) 
+            {
+                Console.WriteLine("IO Exception: {0}", i); 
+            }
             switch (answer)
             {
                 case 'a': Console.WriteLine("Wrong"); break;
