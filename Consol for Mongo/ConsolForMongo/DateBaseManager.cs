@@ -5,6 +5,7 @@ using MongoDB.Driver.Builders;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace ConsolForMongo
@@ -14,91 +15,87 @@ namespace ConsolForMongo
         //Learn:
         //1.Read about lazy loading conception.
 
-        private const string _userName = "slots_test";
-        private const string _password = "hbnvuii2u4jh31j23bnbn";
-        private const string _hostPort = "213.239.218.139:27017";
-        private const string _databaseName = "slots_test";
-        private const string _machineItemName = "title";
-        private const string _groupItem = "level";
-        private MongoCollection<BsonDocument> _collection;
-        private string _connectionString 
-        {
-            get {return string.Format("mongodb://{0}:{1}@{2}/{3}", _userName, _password, _hostPort, _databaseName);}
-        }
-
-        private IEnumerable<BsonValue> _levelNumbers { get; set; }
-        private List<int> _levelNumbersList;
-        private MongoCursor<BsonDocument> _statisticItemSet { get; set; }
-        private string _collectionName { get; set; }
+        private const string USER_NAME = "slots_test";
+        private const string PASSWORD = "hbnvuii2u4jh31j23bnbn";
+        private const string HOST_PORT = "213.239.218.139:27017";
+        private const string DATABASE_NAME = "slots_test";
+        private const string MACHINE_ITEM_NAME = "title";
+        private const string GROUP_ITEM = "level";
         private MongoDatabase _database;
         private MongoServer _server;
-        
-   
-        private void IdentifyAnyCollection(string collectionNameToCreat)
+        private string _connectionString
         {
-            _server = MongoServer.Create(_connectionString);
-            _database = _server.GetDatabase(_databaseName);
-            _collectionName = collectionNameToCreat;
-            _collection = _database.GetCollection(_collectionName);
+            get { return string.Format("mongodb://{0}:{1}@{2}/{3}", USER_NAME, PASSWORD, HOST_PORT, DATABASE_NAME); }
+        }
+  
+
+        private MongoCollection<BsonDocument> GetCollection(string collectionNameToCreat)
+        {
+           if (_server == null) 
+                _server = MongoServer.Create(_connectionString);
+            if (_database ==null)
+                _database = _server.GetDatabase(DATABASE_NAME);
+            return _database.GetCollection(collectionNameToCreat);
         }
 
-        private void SortLevelNumbers()
+        private List<int> GetSortedLevelNumberList(IEnumerable<BsonValue> levelNumbers)
         {
-            _levelNumbersList = new List<int>();
-            foreach (BsonValue levelNumber in _levelNumbers)
+            List<int> levelNumbersList = new List<int>();
+            foreach (BsonValue levelNumber in levelNumbers)
             {
-                _levelNumbersList.Add(levelNumber.AsInt32);
+                levelNumbersList.Add(levelNumber.AsInt32);
             }
-            _levelNumbersList.Sort();
+            levelNumbersList.Sort();
+            return levelNumbersList;
         }
 
-        private void MachineTitleFieldFinder()
+        private void ShowMachineTitleField_OptimalWay(MongoCollection<BsonDocument> machineCollection)
         {
             Console.Write("\nОптимальный способ:\n\n");
-            foreach (BsonDocument item in _collection.FindAll().SetFields(Fields.Exclude("_id").Include(_machineItemName)))
+            foreach (BsonDocument item in machineCollection.FindAll().SetFields(Fields.Exclude("_id").Include(MACHINE_ITEM_NAME)))
             {
-                Console.WriteLine(item[_machineItemName]);
+                Console.WriteLine(item[MACHINE_ITEM_NAME]);
             }
 
         }
-        
-        private void MachineAllFieldsFinder()
+
+        private void ShowMachineTitleField_NonoptimalWay(MongoCollection<BsonDocument> machineCollection)
         {
             Console.WriteLine("\nНе оптимальный способ:\n\n");
-            foreach (BsonDocument item in _collection.FindAll())
+            foreach (BsonDocument item in machineCollection.FindAll())
             {
-                Console.WriteLine(item[_machineItemName]);
+                Console.WriteLine(item[MACHINE_ITEM_NAME]);
             }
         }
 
         public void CountAverageWinSpent()
         {
-
-            IdentifyAnyCollection("user");
-            _levelNumbers = _collection.Distinct(_groupItem);
-            _statisticItemSet = _collection.FindAll().SetFields(Fields.Exclude("_id").Include("statistics.money_spent"
-                                                                                            , "statistics.total_win", "level"));
-            Console.WriteLine(string.Format("Имя обрабатываемой таблицы: {0}", _collectionName));
-            SortLevelNumbers();
-            double averageForGroup = 0d;
-            int countUsersInGroup = 0;
-            foreach (int levelNumber in _levelNumbersList)
+            MongoCollection<BsonDocument> userCollection = GetCollection("user");
+            IEnumerable<BsonValue> levelNumbers = userCollection.Distinct(GROUP_ITEM);
+            List<BsonDocument> statisticItemSet = userCollection.FindAll().SetFields(Fields.Exclude("_id").
+                                                 Include("statistics.money_spent", "statistics.total_win", "level")).ToList();
+            Console.WriteLine("Имя обрабатываемой таблицы: {0}", userCollection.Name);
+            foreach (int levelNumber in GetSortedLevelNumberList(levelNumbers))
             {
-                countUsersInGroup = 0;
-                averageForGroup = 0d;
-                foreach (BsonDocument statisticItem in _statisticItemSet)
+                double averageForGroup = 0d;
+                int countUsersInGroup = 0;
+                foreach (BsonDocument statisticItem in statisticItemSet)
                 {
-                    if (statisticItem[_groupItem].AsInt32 == levelNumber)
+                    if (statisticItem.ElementCount != 0)
                     {
-                        double totalWin = statisticItem["statistics"].ToBsonDocument().GetElement("total_win").Value.ToDouble();
-                        double totalSpent = statisticItem["statistics"].ToBsonDocument().GetElement("money_spent").Value.ToDouble();
-                        if (totalSpent != 0)
+                        if (statisticItem[GROUP_ITEM].AsInt32 == levelNumber)
                         {
-                            averageForGroup += totalWin / totalSpent;
-                            countUsersInGroup += 1;
-                        }
+                            double totalWin = statisticItem["statistics"].ToBsonDocument().GetElement("total_win").Value.ToDouble();
+                            double totalSpent = statisticItem["statistics"].ToBsonDocument().GetElement("money_spent").Value.ToDouble();
+                            if (totalSpent != 0)
+                            {
+                                averageForGroup += totalWin / totalSpent;
+                                countUsersInGroup += 1;
+                            }
 
+                        }
                     }
+
                 }
                 Console.WriteLine("\n Отношение выигрыша к затратам на уровне {0} составляет {1} %",
                     levelNumber, (averageForGroup == 0d ? 0d : averageForGroup / countUsersInGroup) * 100);
@@ -109,13 +106,13 @@ namespace ConsolForMongo
 
         public void ShowMashineTitles()
         {
-            IdentifyAnyCollection("machine");
+            MongoCollection<BsonDocument> machineCollection = GetCollection("machine"); 
             TimeMessuring.StartTime();
-            MachineTitleFieldFinder();
+            ShowMachineTitleField_OptimalWay(machineCollection);
             TimeMessuring.EndTime();
 
             TimeMessuring.StartTime();
-            MachineAllFieldsFinder();
+            ShowMachineTitleField_NonoptimalWay(machineCollection);
             TimeMessuring.EndTime();
 
             Console.WriteLine("Работа с таблицей machine окончена");

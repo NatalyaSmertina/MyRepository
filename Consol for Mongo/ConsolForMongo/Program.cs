@@ -23,6 +23,7 @@ namespace ConsolForMongo
                 if (userChoiceInt == 1 || userChoiceInt == 2)
                 {
                     DatabaseManager databaseManager = new DatabaseManager();
+
                     if (userChoiceInt == 1)
                     {
                         databaseManager.CountAverageWinSpent();
